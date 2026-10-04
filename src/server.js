@@ -3,10 +3,12 @@ import express from 'express';
 import cors from 'cors';
 import { connectMongoDB } from './db/connectMongoDB.js';
 import { logger } from './middleware/logger.js';
+import authRoutes from './routes/authRoutes.js';
 import notesRoutes from './routes/notesRoutes.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { errors } from 'celebrate';
+import cookieParser from 'cookie-parser';
 import dns from 'node:dns';
 
 dns.setServers(['1.1.1.1']);
@@ -17,6 +19,8 @@ const PORT = process.env.PORT || 3000;
 app.use(logger);
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
+app.use(authRoutes);
 
 app.use(notesRoutes);
 app.use(notFoundHandler);
