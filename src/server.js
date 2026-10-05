@@ -9,6 +9,7 @@ import { errorHandler } from './middleware/errorHandler.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { errors } from 'celebrate';
 import cookieParser from 'cookie-parser';
+import userRoutes from './routes/userRoutes.js';
 import dns from 'node:dns';
 
 dns.setServers(['1.1.1.1']);
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 app.use(authRoutes);
+app.use(userRoutes);
 
 app.use(notesRoutes);
 app.use(notFoundHandler);
